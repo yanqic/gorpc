@@ -3,7 +3,6 @@ package codec
 import (
 	"bufio"
 	"encoding/gob"
-	"fmt"
 	"io"
 	"log"
 )
@@ -43,16 +42,15 @@ func (c *GobCodec) Write(h *Header, body interface{}) (err error) {
 			_ = c.Close()
 		}
 	}()
-	if err := c.enc.Encode(h); err != nil {
+	if err = c.enc.Encode(h); err != nil {
 		log.Println("rpc: gob error encoding header:", err)
-		return err
+		return
 	}
-	if err := c.enc.Encode(body); err != nil {
+	if err = c.enc.Encode(body); err != nil {
 		log.Println("rpc: gob error encoding body:", err)
-		return err
+		return
 	}
-	fmt.Println(body)
-	return nil
+	return
 }
 
 func (c *GobCodec) Close() error {
