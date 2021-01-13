@@ -72,7 +72,7 @@ func (d *MultiServerDiscovery) Get(mode SelectMode) (string, error) {
 func (d *MultiServerDiscovery) GetAll() ([]string, error) {
 	d.mu.RLock()
 	defer d.mu.RUnlock()
-	servers := make([]string,len(d.servers), len(d.servers))
+	servers := make([]string, len(d.servers))
 	copy(servers, d.servers)
 	return servers, nil
 }
